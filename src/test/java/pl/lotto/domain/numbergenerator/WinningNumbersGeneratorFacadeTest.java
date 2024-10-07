@@ -24,7 +24,7 @@ class WinningNumbersGeneratorFacadeTest {
     @Test
     public void should_return_set_of_required_size() {
         //given
-        RandomNumbersGenerable generator = new WinningNumbersGenerator();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -36,7 +36,7 @@ class WinningNumbersGeneratorFacadeTest {
     @Test
     public void should_return_set_of_required_size_within_required_range() {
         //given
-        RandomNumbersGenerable generator = new WinningNumbersGenerator();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGeneratorFacade = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -64,7 +64,7 @@ class WinningNumbersGeneratorFacadeTest {
     @Test
     public void should_return_collection_of_unique_values() {
         //given
-        RandomNumbersGenerable generator = new WinningNumbersGenerator();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
