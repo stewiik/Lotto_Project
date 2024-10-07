@@ -2,7 +2,7 @@ package pl.lotto.domain.numbergenerator;
 
 import java.util.Set;
 
-public class WinningNumbersValidator {
+class WinningNumbersValidator {
 
     private final int LOWER_BAND = 1;
     private final int UPPER_BAND = 99;
