@@ -2,9 +2,9 @@ package pl.lotto.domain.numberreceiver;
 
 import pl.lotto.domain.numberreceiver.dto.TicketDto;
 
-public class TicketMapper {
+class TicketMapper {
 
-    public static TicketDto mapFromTicketToTicketDto(Ticket ticket) {
+    static TicketDto mapFromTicketToTicketDto(Ticket ticket) {
         return TicketDto.builder()
                 .numbersFromUser(ticket.numbersFromUser())
                 .hash(ticket.hash())
@@ -12,7 +12,7 @@ public class TicketMapper {
                 .build();
     }
 
-    public static Ticket mapFromTicketDtoToTicket(TicketDto ticketDto) {
+    static Ticket mapFromTicketDtoToTicket(TicketDto ticketDto) {
         return Ticket.builder()
                 .hash(ticketDto.hash())
                 .numbersFromUser(ticketDto.numbersFromUser())
