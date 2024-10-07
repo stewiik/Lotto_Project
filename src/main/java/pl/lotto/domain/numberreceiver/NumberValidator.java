@@ -1,17 +1,41 @@
 package pl.lotto.domain.numberreceiver;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 class NumberValidator {
 
-    private static final int MAX_NUMBERS_FROM_USER = 6;
-    private static final int MINIMAL_NUMBER_FROM_USER = 1;
-    private static final int MAXIMAL_NUMBER_FROM_USER = 99;
+    private static final int NUM_OF_NUMBERS_FROM_USER = 6;
+    private static final int MIN_NUMBER_FROM_USER = 1;
+    private static final int MAX_NUMBER_FROM_USER = 99;
 
-    boolean areAllNumbersInRange(Set<Integer> numbersFromUser) {
-        return numbersFromUser.stream()
-                .filter(number -> number >= MINIMAL_NUMBER_FROM_USER)
-                .filter(number -> number <= MAXIMAL_NUMBER_FROM_USER)
-                .count() == MAX_NUMBERS_FROM_USER;
+    List<ValidationResult> errors = new LinkedList<>();
+
+    List<ValidationResult> validate(Set<Integer> numbersFromUsers) {
+        if (!isNumbersSizeEqualsSix(numbersFromUsers)) {
+            errors.add(ValidationResult.NOT_SIX_NUMBERS_GIVEN);
+        }
+        if (!isNumberInRange(numbersFromUsers)) {
+            errors.add(ValidationResult.NOT_IN_RANGE);
+        }
+        return errors;
+    }
+
+    private boolean isNumbersSizeEqualsSix(Set<Integer> numbersFromUsers) {
+        return numbersFromUsers.size() == NUM_OF_NUMBERS_FROM_USER;
+    }
+
+    boolean isNumberInRange(Set<Integer> numbersFromUsers) {
+        return numbersFromUsers.stream()
+                .allMatch(number -> number >= MIN_NUMBER_FROM_USER && number <= MAX_NUMBER_FROM_USER);
+    }
+
+    String createResultMessage() {
+        return this.errors
+                .stream()
+                .map(validationResult -> validationResult.message)
+                .collect(Collectors.joining(","));
     }
 }
