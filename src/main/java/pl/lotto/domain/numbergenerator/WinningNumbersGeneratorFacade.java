@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @AllArgsConstructor
-public class NumberGeneratorFacade {
+public class WinningNumbersGeneratorFacade {
 
     private final NumberReceiverFacade numberReceiverFacade;
-    private final NumbersGenerable winningNumbersGenerator;
+    private final RandomNumbersGenerable winningNumbersGenerator;
     private WinningNumbersValidator winningNumbersValidator;
     private WinningNumbersRepository winningNumbersRepository;
 
