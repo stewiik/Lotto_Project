@@ -18,7 +18,7 @@ import org.testcontainers.utility.DockerImageName;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 @SpringBootTest(classes = LottoSpringBootApplication.class)
-@ActiveProfiles("interation") // spring uzyje profil o tej nazwie - application-integration
+@ActiveProfiles("integration") // spring uzyje profil o tej nazwie - application-integration
 @AutoConfigureMockMvc //pozwoli zrobic klienta ktory zadaje zapytania do bazy
 @Testcontainers //pozwoli odpali baze na potrzeby testow na dockerze
 public class BaseIntegrationTest {
