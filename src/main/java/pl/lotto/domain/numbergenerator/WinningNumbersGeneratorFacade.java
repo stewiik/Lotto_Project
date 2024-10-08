@@ -10,29 +10,33 @@ import java.util.Set;
 @AllArgsConstructor
 public class WinningNumbersGeneratorFacade {
 
+    private final RandomNumbersGenerable randomGenerable;
+    private final WinningNumbersValidator winningNumberValidator;
+    private final WinningNumbersRepository winningNumbersRepository;
     private final NumberReceiverFacade numberReceiverFacade;
-    private final RandomNumbersGenerable winningNumbersGenerator;
-    private WinningNumbersValidator winningNumbersValidator;
-    private WinningNumbersRepository winningNumbersRepository;
+    private final WinningNumbersGeneratorFacadeConfigProperties properties;
 
     public WinningNumbersDto generateWinningNumbers() {
         LocalDateTime nextDrawDate = numberReceiverFacade.retrieveNextDrawDate();
-        SixRandomNumbersDto numbersDto = winningNumbersGenerator.generateSixRandomNumbers();
-        Set<Integer> winningNumbers = numbersDto.numbers();
-        winningNumbersValidator.validate(winningNumbers);
-        WinningNumbers numbersToSaveInRepository = WinningNumbers.builder()
+        SixRandomNumbersDto sixRandomNumbersDto = randomGenerable.generateSixRandomNumbers(properties.count(), properties.lowerBand(), properties.upperBand());
+        Set<Integer> winningNumbers = sixRandomNumbersDto.numbers();
+        winningNumberValidator.validate(winningNumbers);
+        winningNumbersRepository.save(WinningNumbers.builder()
                 .winningNumbers(winningNumbers)
                 .date(nextDrawDate)
+                .build());
+        return WinningNumbersDto.builder()
+                .winningNumbers(winningNumbers)
                 .build();
-        winningNumbersRepository.save(numbersToSaveInRepository);
-
-        return WinningNumbersMapper.mapFromWinningNumbersToWinningNumbersDto(numbersToSaveInRepository);
     }
 
-    public WinningNumbersDto receiveWinningNumbersByDate(LocalDateTime date) {
+    public WinningNumbersDto retrieveWinningNumberByDate(LocalDateTime date) {
         WinningNumbers numbersByDate = winningNumbersRepository.findNumbersByDate(date)
-                .orElseThrow(() -> new WinningNumbersNotFoundException("Not found"));
-        return WinningNumbersMapper.mapFromWinningNumbersToWinningNumbersDto(numbersByDate);
+                .orElseThrow(() -> new WinningNumbersNotFoundException("Not Found"));
+        return WinningNumbersDto.builder()
+                .winningNumbers(numbersByDate.winningNumbers())
+                .date(numbersByDate.date())
+                .build();
     }
 
     public boolean areWinningNumbersGeneratedByDate() {

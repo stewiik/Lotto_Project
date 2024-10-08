@@ -3,5 +3,5 @@ package pl.lotto.domain.numbergenerator;
 
 public interface RandomNumbersGenerable {
 
-    SixRandomNumbersDto generateSixRandomNumbers();
+    SixRandomNumbersDto generateSixRandomNumbers(int count, int lowerBand, int upperBand);
 }

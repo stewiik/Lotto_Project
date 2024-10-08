@@ -24,7 +24,7 @@ class WinningNumbersGeneratorFacadeTest {
     @Test
     public void should_return_set_of_required_size() {
         //given
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -36,7 +36,7 @@ class WinningNumbersGeneratorFacadeTest {
     @Test
     public void should_return_set_of_required_size_within_required_range() {
         //given
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGeneratorFacade = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -53,7 +53,7 @@ class WinningNumbersGeneratorFacadeTest {
     public void should_throw_an_exception_when_number_not_in_range() {
         //given
         Set<Integer> numbers = Set.of(1, 4, 6, 56, 34, 100);
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp(numbers);
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl(numbers);
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -64,7 +64,7 @@ class WinningNumbersGeneratorFacadeTest {
     @Test
     public void should_return_collection_of_unique_values() {
         //given
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(LocalDateTime.now());
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -86,7 +86,7 @@ class WinningNumbersGeneratorFacadeTest {
                 .winningNumbers(generatedWinningNumbers)
                 .build();
         winningNumbersRepository.save(winningNumbers);
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(drawDate);
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
@@ -103,12 +103,12 @@ class WinningNumbersGeneratorFacadeTest {
     public void should_throw_an_exception_when_fail_to_retrieve_numbers_by_given_date() {
         //given
         LocalDateTime drawDate = LocalDateTime.of(2024, 8, 24, 12, 0, 0);
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(drawDate);
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
         //then
-        assertThrows(WinningNumbersNotFoundException.class, () -> numbersGenerator.receiveWinningNumbersByDate(drawDate));
+        assertThrows(WinningNumbersNotFoundException.class, () -> numbersGenerator.retrieveWinningNumberByDate(drawDate));
     }
 
     @Test
@@ -123,7 +123,7 @@ class WinningNumbersGeneratorFacadeTest {
                 .date(drawDate)
                 .build();
         winningNumbersRepository.save(winningNumbers);
-        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImp();
+        RandomNumbersGenerable generator = new WinningNumbersGeneratorTestImpl();
         when(numberReceiverFacade.retrieveNextDrawDate()).thenReturn(drawDate);
         WinningNumbersGeneratorFacade numbersGenerator = new NumbersGeneratorConfig().createForTests(generator, winningNumbersRepository, numberReceiverFacade);
         //when
