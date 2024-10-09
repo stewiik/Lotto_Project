@@ -11,26 +11,6 @@ import java.util.Optional;
 public class NumbersGeneratorConfig {
 
     @Bean
-    WinningNumbersRepository repository() {
-        return new WinningNumbersRepository() {
-            @Override
-            public Optional<WinningNumbers> findNumbersByDate(LocalDateTime date) {
-                return Optional.empty();
-            }
-
-            @Override
-            public boolean existsByDate(LocalDateTime nextDrawDate) {
-                return false;
-            }
-
-            @Override
-            public WinningNumbers save(WinningNumbers winningNumbers) {
-                return null;
-            }
-        };
-    }
-
-    @Bean
     WinningNumbersGeneratorFacade winningNumbersGeneratorFacade(WinningNumbersRepository winningNumbersRepository, NumberReceiverFacade numberReceiverFacade, RandomNumbersGenerable randomNumberGenerator, WinningNumbersGeneratorFacadeConfigProperties properties) {
         WinningNumbersValidator winningNumberValidator = new WinningNumbersValidator();
         return new WinningNumbersGeneratorFacade(randomNumberGenerator, winningNumberValidator, winningNumbersRepository, numberReceiverFacade, properties);

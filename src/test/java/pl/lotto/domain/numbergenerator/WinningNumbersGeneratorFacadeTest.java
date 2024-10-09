@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 class WinningNumbersGeneratorFacadeTest {
 
-    private final WinningNumbersRepository winningNumbersRepository = new WinningNumbersRepositoryImpl();
+    private final WinningNumbersRepository winningNumbersRepository = new WinningNumbersRepositoryTestImpl();
     NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
 
 
