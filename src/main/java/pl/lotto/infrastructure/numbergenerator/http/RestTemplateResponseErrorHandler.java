@@ -1,4 +1,4 @@
-package pl.lotto.infrastructure.http;
+package pl.lotto.infrastructure.numbergenerator.http;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

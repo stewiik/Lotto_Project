@@ -1,8 +1,7 @@
-package pl.lotto.infrastructure.scheduler;
+package pl.lotto.infrastructure.numbergenerator.scheduler;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.jetbrains.annotations.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pl.lotto.domain.numbergenerator.WinningNumbersGeneratorFacade;
