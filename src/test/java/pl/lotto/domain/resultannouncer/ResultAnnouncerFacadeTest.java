@@ -28,7 +28,7 @@ class ResultAnnouncerFacadeTest {
         //given
         LocalDateTime drawTime = LocalDateTime.of(2024, 8, 24, 12, 0, 0);
         String hash = "123";
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().createForTest(resultResponseRepository, resultCheckerFacade, clock);
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().resultAnnouncerFacade(resultResponseRepository, resultCheckerFacade, clock);
         ResultDto resultDto = ResultDto.builder()
                 .hash("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -57,7 +57,7 @@ class ResultAnnouncerFacadeTest {
         LocalDateTime drawTime = LocalDateTime.of(2024, 8, 24, 12, 0, 0);
         String hash = "123";
         clock = Clock.fixed(LocalDateTime.of(2023, 8, 22, 14, 0, 0).toInstant(ZoneOffset.UTC), ZoneId.of("Europe/Warsaw"));
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().createForTest(resultResponseRepository, resultCheckerFacade, clock);
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().resultAnnouncerFacade(resultResponseRepository, resultCheckerFacade, clock);
         ResultDto resultDto = ResultDto.builder()
                 .hash("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -84,7 +84,7 @@ class ResultAnnouncerFacadeTest {
     public void should_return_response_with_hash_does_not_exist_message_if_hash_does_not_exist() {
         //given
         String hash = "123";
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().createForTest(resultResponseRepository, resultCheckerFacade, clock);
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().resultAnnouncerFacade(resultResponseRepository, resultCheckerFacade, clock);
         when(resultCheckerFacade.findByHash(hash)).thenReturn(null);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
@@ -101,7 +101,7 @@ class ResultAnnouncerFacadeTest {
         Set<Integer> numbers = Set.of(1, 2, 3, 4, 5, 6);
         Set<Integer> hitNumbers = Set.of(1, 2, 3, 4, 8, 9);
         boolean isWinner = true;
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().createForTest(resultResponseRepository, resultCheckerFacade, clock);
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().resultAnnouncerFacade(resultResponseRepository, resultCheckerFacade, clock);
         ResultDto resultDto = ResultDto.builder()
                 .hash(hash)
                 .numbers(numbers)
@@ -126,7 +126,7 @@ class ResultAnnouncerFacadeTest {
         //given
         LocalDateTime drawTime = LocalDateTime.of(2024, 8, 24, 12, 0, 0);
         String hash = "123";
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().createForTest(resultResponseRepository, resultCheckerFacade, clock);
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().resultAnnouncerFacade(resultResponseRepository, resultCheckerFacade, clock);
         ResultDto resultDto = ResultDto.builder()
                 .hash("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
