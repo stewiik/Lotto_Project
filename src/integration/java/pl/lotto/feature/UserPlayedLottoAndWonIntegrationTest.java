@@ -75,14 +75,14 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
         assertAll(
                 () -> assertThat(numberReceiverResponseDto.ticketDto().drawDate()).isEqualTo(drawDate),
                 () -> assertThat(hash).isNotNull(),
-                () -> assertThat(numberReceiverResponseDto.message()).isEqualTo("SUCCESS")
+                () -> assertThat(numberReceiverResponseDto.message()).isEqualTo("Success")
         );
 
 //    step 4: user made GET /results/notExistingId and system returned 404(NOT_FOUND) and body with (message: Not found for id: notExistingId and status NOT_FOUND)
         //given
         //when
-        ResultActions performGetResultsWithNotExistingId = mockMvc.perform(get("/results" + "notExistingId"));
-        //then
+        ResultActions performGetResultsWithNotExistingId = mockMvc.perform(get("/results/notExistingId"));
+        // then
         performGetResultsWithNotExistingId.andExpect(status().isNotFound())
                 .andExpect(content().json("""
                         {
@@ -91,6 +91,8 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                         }
                         """.trim()
                 ));
+
+
 //    step 5: 3 days and 1 minute passed, and it is 1 minute after the draw date (19.11.2022 12:01)
 //    step 6: system generated result for TicketId: sampleTicketId with draw date 19.11.2022 12:00, and saved it with 6 hits
 //    step 7: 3 hours passed, and it is 1 minute after announcement time (19.11.2022 15:01)
