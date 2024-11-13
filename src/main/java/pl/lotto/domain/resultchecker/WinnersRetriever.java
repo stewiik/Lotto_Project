@@ -12,12 +12,12 @@ class WinnersRetriever {
         return allTicketsByDate.stream()
                 .map(ticket -> {
                     Set<Integer> hitNumbers = calculateHits(winningNumbers, ticket);
-                    return buildPlayer(ticket, hitNumbers);
+                    return buildResult(ticket, hitNumbers);
                 })
                 .toList();
     }
 
-    private Player buildPlayer(Ticket ticket, Set<Integer> hitNumbers) {
+    private Player buildResult(Ticket ticket, Set<Integer> hitNumbers) {
         Player.PlayerBuilder playerBuilder = Player.builder();
         if (isWinner(hitNumbers)) {
             playerBuilder.isWinner(true);
