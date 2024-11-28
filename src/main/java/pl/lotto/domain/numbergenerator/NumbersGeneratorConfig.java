@@ -4,9 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.lotto.domain.numberreceiver.NumberReceiverFacade;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 @Configuration
 public class NumbersGeneratorConfig {
 
