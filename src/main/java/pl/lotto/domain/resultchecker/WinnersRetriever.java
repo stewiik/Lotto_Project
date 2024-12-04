@@ -12,7 +12,13 @@ class WinnersRetriever {
         return allTicketsByDate.stream()
                 .map(ticket -> {
                     Set<Integer> hitNumbers = calculateHits(winningNumbers, ticket);
-                    return buildResult(ticket, hitNumbers);
+                    Player player = buildResult(ticket, hitNumbers);
+                    if (player.isWinner()) {
+                        System.out.printf("Player %s is a winner with %d hits%n", player.hash(), hitNumbers.size());
+                    } else {
+                        System.out.printf("Player %s did not win.", player.hash());
+                    }
+                    return player;
                 })
                 .toList();
     }
@@ -35,8 +41,8 @@ class WinnersRetriever {
     }
 
     private Set<Integer> calculateHits(Set<Integer> winningNumbers, Ticket ticket) {
-       return ticket.numbersFromUser().stream()
-               .filter(winningNumbers::contains)
-               .collect(Collectors.toSet());
+        return ticket.numbersFromUser().stream()
+                .filter(winningNumbers::contains)
+                .collect(Collectors.toSet());
     }
 }
