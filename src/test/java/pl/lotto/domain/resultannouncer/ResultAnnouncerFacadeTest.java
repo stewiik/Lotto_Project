@@ -36,7 +36,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawTime)
                 .isWinner(false)
                 .build();
-        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketHash(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -65,7 +65,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawTime)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketHash(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -85,7 +85,7 @@ class ResultAnnouncerFacadeTest {
         //given
         String hash = "123";
         ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfig().resultAnnouncerFacade(resultResponseRepository, resultCheckerFacade, clock);
-        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(null);
+        when(resultCheckerFacade.findByTicketHash(hash)).thenReturn(null);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -109,7 +109,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawTime)
                 .isWinner(isWinner)
                 .build();
-        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketHash(hash)).thenReturn(resultDto);
         ResultAnnouncerResponseDto firstCheckResponse = resultAnnouncerFacade.checkResult(hash);
         ResultResponse resultResponse = new ResultResponse(hash, numbers, hitNumbers, drawTime, isWinner);
         resultResponseRepository.save(resultResponse);
@@ -134,7 +134,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawTime)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketHash(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,13 +20,13 @@ public class PlayerRepositoryTestImpl implements PlayerRepository {
     private final Map<String, Player> playersList = new ConcurrentHashMap<>();
 
     @Override
-    public Optional<Player> findById(String hash) {
-        return Optional.empty();
+    public Optional<Player> findByHash(String hash) {
+        return Optional.ofNullable(playersList.get(hash));
     }
 
     @Override
     public boolean existsById(String s) {
-        return false;
+        return playersList.containsKey(s);
     }
 
     @Override
@@ -43,12 +44,17 @@ public class PlayerRepositoryTestImpl implements PlayerRepository {
 
     @Override
     public List<Player> findAll() {
-        return List.of();
+        return new ArrayList<>(playersList.values());
+    }
+
+    @Override
+    public Optional<Player> findById(String hash) {
+        return Optional.ofNullable(playersList.get(hash));
     }
 
     @Override
     public List<Player> findAllById(Iterable<String> strings) {
-        return List.of();
+        return null;
     }
 
     @Override

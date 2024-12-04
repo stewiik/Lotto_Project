@@ -26,7 +26,7 @@ public class ResultAnnouncerFacade {
                 return new ResultAnnouncerResponseDto(ResultMapper.mapFromResultDtoToResult(resultResponseCached.get()), ALREADY_CHECKED.message);
             }
         }
-        ResultDto resultDto = resultCheckerFacade.findByTicketId(hash);
+        ResultDto resultDto = resultCheckerFacade.findByTicketHash(hash);
         if (resultDto == null) {
             return new ResultAnnouncerResponseDto(null, HASH_DOES_NOT_EXIST_MESSAGE.message);
         }
@@ -35,7 +35,7 @@ public class ResultAnnouncerFacade {
         if (responseRepository.existsById(hash) && !isAfterResultAnnouncementTime(resultDto)) {
             return new ResultAnnouncerResponseDto(responseDto, WAIT_MESSAGE.message);
         }
-        if (resultCheckerFacade.findByTicketId(hash).isWinner()) {
+        if (resultCheckerFacade.findByTicketHash(hash).isWinner()) {
             return new ResultAnnouncerResponseDto(responseDto, WIN_MESSAGE.message);
         }
         return new ResultAnnouncerResponseDto(responseDto, LOSE_MESSAGE.message);
