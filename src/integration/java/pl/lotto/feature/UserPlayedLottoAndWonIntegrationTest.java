@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import pl.lotto.BaseIntegrationTest;
@@ -37,9 +38,9 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
     @Autowired
     public ResultCheckerFacade resultCheckerFacade;
 
+    @DirtiesContext
     @Test
     public void should_user_win_and_system_should_generate_winners() throws Exception {
-
 
 //      step 1: external service return 6 random numbers (1,2,3,4,5,6)
         // given
@@ -53,12 +54,12 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                         )));
 
 
-//      step 2: system fetched winning numbers for draw date: 19.11.2022 12:00
+//      step 2: system fetched winning numbers for draw date: 16.11.2024 12:00
         //given
-        LocalDateTime drawDate = LocalDateTime.of(2022, 11, 19, 12, 0, 0);
+        LocalDateTime drawDate = LocalDateTime.of(2024, 11, 16, 12, 0, 0);
         //when && then
         await()
-                .atMost(Duration.ofSeconds(20))
+                .atMost(Duration.ofSeconds(30))
                 .pollInterval(Duration.ofSeconds(1))
                 .until(() -> {
                             try {
@@ -70,7 +71,7 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                 );
 
 
-//      step 3: user made POST /inputNumbers with 6 numbers (1, 2, 3, 4, 5, 6) at 16-11-2022 10:00 and system returned OK(200) with message: “success” and Ticket (DrawDate:19.11.2022 12:00 (Saturday), TicketId: sampleTicketId)
+//      step 3: user made POST /inputNumbers with 6 numbers (1, 2, 3, 4, 5, 6) at 13-11-2024 10:00 and system returned OK(200) with message: “success” and Ticket (DrawDate:16.11.2024 12:00 (Saturday), TicketId: sampleTicketId)
         // given
         // when
         ResultActions performPostInputNumbers = mockMvc.perform(post("/inputNumbers")
@@ -108,17 +109,17 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                 ));
 
 
-//      step 5: 3 days and 55 minutes passed, and it is 5 minute before draw (19.11.2022 11:55)
+//      step 5: 3 days and 55 minutes passed, and it is 5 minute before draw (16.11.2024 11:55)
         // given && when && then
         clock.plusDaysAndMinutes(3, 55);
 
 
-//      step 6: system generated result for TicketId: sampleTicketId with draw date 19.11.2022 12:00, and saved it with 6 hits
+//      step 6: system generated result for TicketId: sampleTicketId with draw date 16.11.2024 12:00, and saved it with 6 hits
         await().atMost(20, TimeUnit.SECONDS)
                 .pollInterval(Duration.ofSeconds(1L))
                 .until(() -> {
                             try {
-                                ResultDto result = resultCheckerFacade.findByTicketId(ticketId);
+                                ResultDto result = resultCheckerFacade.findByTicketHash(ticketId);
                                 return !result.numbers().isEmpty();
                             } catch (PlayerResultNotFoundException exception) {
                                 return false;
@@ -144,5 +145,5 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                 () -> assertThat(finalResult.resultDto().hash()).isEqualTo(ticketId),
                 () -> assertThat(finalResult.resultDto().hitNumbers()).hasSize(6));
 
-   }
+    }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.lotto.domain.numbergenerator.RandomNumbersGenerable;
-import pl.lotto.domain.numbergenerator.SixRandomNumbersDto;
+import pl.lotto.domain.numbergenerator.dto.SixRandomNumbersDto;
 
 @AllArgsConstructor
 @Log4j2

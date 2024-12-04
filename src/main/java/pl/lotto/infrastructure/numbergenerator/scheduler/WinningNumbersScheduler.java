@@ -16,10 +16,9 @@ public class WinningNumbersScheduler {
 
     @Scheduled(cron = "${lotto.number-generator.lotteryRunOccurrence}")
     public WinningNumbersDto generateWinningNumbers() {
-        log.info("winning numbers scheduler started");
+        log.info("Winning numbers scheduler started");
         WinningNumbersDto winningNumbersDto = winningNumbersGeneratorFacade.generateWinningNumbers();
-        log.info(winningNumbersDto.winningNumbers());
-        log.info(winningNumbersDto.date());
+        log.info("Generated winning numbers: {}", winningNumbersDto.winningNumbers());
         return winningNumbersDto;
     }
 }

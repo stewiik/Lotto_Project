@@ -1,6 +1,7 @@
 package pl.lotto.domain.numbergenerator;
 
 import lombok.AllArgsConstructor;
+import pl.lotto.domain.numbergenerator.dto.SixRandomNumbersDto;
 import pl.lotto.domain.numbergenerator.dto.WinningNumbersDto;
 import pl.lotto.domain.numberreceiver.NumberReceiverFacade;
 
